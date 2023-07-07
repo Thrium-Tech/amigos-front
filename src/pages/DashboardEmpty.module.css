@@ -1,0 +1,209 @@
+.welcomeMessageIcon {
+  align-self: stretch;
+}
+.addTask,
+.icon {
+  position: relative;
+}
+.icon {
+  width: 18px;
+  height: 18px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.addTask {
+  flex: 1;
+  font-weight: 500;
+}
+.menu1 {
+  text-decoration: none;
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  cursor: pointer;
+  color: inherit;
+}
+.menuChild {
+  align-self: stretch;
+  position: relative;
+  border-top: 1px solid var(--color-white);
+  box-sizing: border-box;
+  height: 1px;
+  opacity: 0.5;
+}
+.menu,
+.menu2 {
+  justify-content: flex-start;
+}
+.menu2 {
+  text-decoration: none;
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-5xs);
+  opacity: 0.7;
+  cursor: pointer;
+  color: inherit;
+}
+.menu {
+  margin: 0;
+  padding: 0 var(--padding-5xs);
+  gap: var(--gap-13xl);
+  text-align: left;
+  font-size: var(--font-size-sm);
+  color: var(--color-white);
+  font-family: var(--font-inter);
+}
+.fixedSideBar,
+.menu,
+.topMenuContainer {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.topMenuContainer {
+  text-decoration: none;
+  justify-content: center;
+  gap: var(--gap-21xl);
+}
+.fixedSideBar {
+  margin: 0;
+  background-color: var(--color-darkslategray);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  width: 272px;
+  overflow: hidden;
+  flex-shrink: 0;
+  padding: var(--padding-19xl) var(--padding-13xl);
+  box-sizing: border-box;
+  justify-content: space-between;
+}
+.welcomeShashank,
+.whatWouldYou {
+  align-self: stretch;
+  position: relative;
+}
+.welcomeShashank {
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+.whatWouldYou {
+  font-size: var(--font-size-sm);
+  color: var(--color-darkslategray);
+}
+.welcomeShashankParent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.desktop3Inner,
+.frameParent {
+  align-self: stretch;
+  display: flex;
+}
+.frameParent {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-37xl);
+}
+.desktop3Inner {
+  background-color: var(--color-white);
+  box-shadow: 0 4px 148px rgba(0, 0, 0, 0.02);
+  flex-direction: column;
+  padding: var(--padding-21xl) var(--padding-45xl) var(--padding-5xl);
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.div,
+.toDo {
+  position: relative;
+  font-weight: 500;
+}
+.toDo {
+  margin: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background: linear-gradient(#a0a0a0, #a0a0a0), #858a93;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.div {
+  display: none;
+}
+.wrapper {
+  border-radius: var(--br-9xs);
+  background-color: var(--color-black);
+  display: none;
+  flex-direction: column;
+  padding: var(--padding-5xs) var(--padding-xs);
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+}
+.columnTitle {
+  align-self: stretch;
+  border-radius: var(--br-5xs);
+  background-color: var(--color-whitesmoke);
+  height: 150px;
+  display: flex;
+  flex-direction: row;
+  padding: var(--padding-5xs) var(--padding-base);
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+}
+.columnTitleWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.desktop3Child {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  padding: 0 var(--padding-45xl);
+  align-items: flex-start;
+  justify-content: center;
+  text-align: center;
+  font-size: var(--font-size-base);
+  color: var(--color-white);
+}
+.dashboardEmptyMain,
+.desktop3 {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.desktop3 {
+  align-self: stretch;
+  background-color: var(--color-gray);
+  width: 1168px;
+  flex-shrink: 0;
+  flex-direction: column;
+  padding: 0 0 var(--padding-53xl);
+  box-sizing: border-box;
+  gap: var(--gap-45xl);
+}
+.dashboardEmptyMain {
+  position: relative;
+  background-color: var(--color-white);
+  box-shadow: 0 38px 200px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 1024px;
+  flex-direction: row;
+  text-align: left;
+  font-size: var(--font-size-19xl);
+  color: var(--color-black);
+  font-family: var(--font-inter);
+}
