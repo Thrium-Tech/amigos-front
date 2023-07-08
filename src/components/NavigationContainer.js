@@ -36,7 +36,7 @@ const NavigationContainer = ({
           src="/welcomemessage@2x.png"
         />
         <nav className={styles.menu} style={menuStyle}>
-          <Link className={styles.menu1} to={menuHref} style={menu1Style}>
+          <Link className={styles.menu1} to="/dashboard-empty-main" style={menu1Style}>
             <img className={styles.icon} alt="" src={icon} />
             <div className={styles.addTask}>Dashboard</div>
           </Link>

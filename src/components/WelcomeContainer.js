@@ -23,7 +23,7 @@ const WelcomeContainer = ({
           sx={{ width: 199 }}
           variant="contained"
           color="success"
-          href={frame12Href}
+          href="/create-new-message"
         >
           + New Message
         </Button>

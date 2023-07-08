@@ -9,10 +9,10 @@ const DashboardEmpty = () => {
           <nav className={styles.menu}>
             <a className={styles.menu1}>
               <img className={styles.icon} alt="" src="/icon5.svg" />
-              <div className={styles.addTask}>Dashboard</div>
+              <div className={styles.addTask}>Dashboard</div> 
             </a>
             <div className={styles.menuChild} />
-            <a className={styles.menu2}>
+            <a className={styles.menu2} href="/Profile">
               <img className={styles.icon} alt="" src="/icon1.svg" />
               <div className={styles.addTask}>Profile</div>
             </a>

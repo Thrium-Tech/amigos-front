@@ -1,14 +1,15 @@
 import { TextField, Button } from "@mui/material";
-import SideBarContainer from "../components/SideBarContainer";
+// import SideBarContainer from "../components/SideBarContainer";
 import WelcomeContainer from "../components/WelcomeContainer";
+import NavigationContainer from "../components/NavigationContainer";
 import styles from "./Profile.module.css";
 const Profile = () => {
   return (
     <div className={styles.profile}>
-      <SideBarContainer
-        productIds="/icon3.svg"
-        productIdsArray="/icon4.svg"
-        productIdsString="/icon2.svg"
+      <NavigationContainer
+        menuHref="/dashboard"
+        icon="/icon3.svg"
+        icon1="/icon4.svg"
       />
       <div className={styles.desktop3}>
         <WelcomeContainer
