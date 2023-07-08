@@ -1,13 +1,14 @@
 import { TextField, Button, Icon } from "@mui/material";
-import SideBarContainer from "../components/SideBarContainer";
+// import SideBarContainer from "../components/SideBarContainer";
+import NavigationContainer from "../components/NavigationContainer";
 import styles from "./CreateNewMessage.module.css";
 const CreateNewMessage = () => {
   return (
     <div className={styles.createNewMessage}>
-      <SideBarContainer
-        productIds="18x18x870246450"
-        productIdsArray="/icon1.svg"
-        productIdsString="18x18x3871275327"
+      <NavigationContainer
+        menuHref="/dashboard"
+        icon="/icon3.svg"
+        icon1="/icon4.svg"
       />
       <div className={styles.desktop3}>
         <div className={styles.desktop3Inner}>
