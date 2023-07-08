@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './css/style.css';
 
@@ -32,10 +32,28 @@ function Login() {
     // print the values to the console
     console.log('Name:', name);
     console.log('Phone Number Id:', number);
-    console.log('Access Token:', password)
+    console.log('Access Token:', password);
+    // store the values in localStorage using JSON.stringify
+    localStorage.setItem('name', JSON.stringify(name));
+    localStorage.setItem('number', JSON.stringify(number));
+    localStorage.setItem('password', JSON.stringify(password));
     // redirect to /dashboard-empty-main
     navigate('/dashboard-empty-main');
   }
+
+  // get the values from localStorage using JSON.parse when component mounts
+  useEffect(() => {
+    setName(JSON.parse(localStorage.getItem('name')) || '');
+    setNumber(JSON.parse(localStorage.getItem('number')) || '');
+    setPassword(JSON.parse(localStorage.getItem('password')) || '');
+  }, []); // run only once
+
+  // sync the local state variables with the localStorage variables whenever they change
+  useEffect(() => {
+    localStorage.setItem('name', JSON.stringify(name));
+    localStorage.setItem('number', JSON.stringify(number));
+    localStorage.setItem('password', JSON.stringify(password));
+  }, [name, number, password]); // run whenever name, number or password changes
 
   return (
     <div className="content">
