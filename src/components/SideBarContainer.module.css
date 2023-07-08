@@ -1,0 +1,114 @@
+.welcomeMessageIcon {
+  align-self: stretch;
+  border-radius: var(--br-5xs);
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+}
+.addTask,
+.icon {
+  position: relative;
+}
+.icon {
+  width: 18px;
+  height: 18px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.addTask {
+  flex: 1;
+}
+.menu1 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+}
+.menuChild {
+  align-self: stretch;
+  position: relative;
+  border-top: 1px solid var(--color-white);
+  box-sizing: border-box;
+  height: 1px;
+  opacity: 0.5;
+}
+.icon1 {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  overflow: hidden;
+  flex-shrink: 0;
+  mix-blend-mode: normal;
+}
+.addTask1 {
+  flex: 1;
+  position: relative;
+  font-weight: 800;
+}
+.menu2 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  mix-blend-mode: normal;
+}
+.addTask2 {
+  flex: 1;
+  position: relative;
+  font-weight: 500;
+}
+.menu3 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  opacity: 0.7;
+}
+.menu,
+.topMenuContainer {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.menu {
+  margin: 0;
+  padding: 0 var(--padding-5xs);
+  justify-content: flex-start;
+  gap: var(--gap-13xl);
+  text-align: left;
+  font-size: var(--font-size-sm);
+  color: var(--color-white);
+  font-family: var(--font-inter);
+}
+.topMenuContainer {
+  justify-content: center;
+  gap: var(--gap-21xl);
+  cursor: pointer;
+}
+.cta,
+.fixedSideBar {
+  align-self: stretch;
+  background-color: var(--color-darkslategray);
+}
+.cta {
+  border-radius: var(--br-5xs);
+}
+.fixedSideBar {
+  width: 272px;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-19xl) var(--padding-13xl);
+  box-sizing: border-box;
+  align-items: flex-start;
+  justify-content: space-between;
+}

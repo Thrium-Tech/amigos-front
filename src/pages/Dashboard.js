@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import WelcomeContainer from "../components/WelcomeContainer";
 import styles from "./Dashboard.module.css";
 const Dashboard = () => {
   return (
@@ -28,20 +28,11 @@ const Dashboard = () => {
           <div className={styles.cta} />
         </div>
         <div className={styles.desktop3}>
+          <WelcomeContainer
+            whatWouldYouLikeToDoToday="What would you like to do today?"
+            propPadding="var(--padding-21xl) var(--padding-45xl) var(--padding-5xl)"
+          />
           <div className={styles.desktop3Inner}>
-            <div className={styles.frameParent}>
-              <div className={styles.welcomeShashankParent}>
-                <div className={styles.welcomeShashank}>Welcome, Shashank</div>
-                <div className={styles.whatWouldYou}>
-                  What would you like to do today?
-                </div>
-              </div>
-              <Button sx={{ width: 199 }} variant="contained" color="success">
-                + New Message
-              </Button>
-            </div>
-          </div>
-          <div className={styles.desktop3Child}>
             <div className={styles.columnTitleWrapper}>
               <div className={styles.columnTitle}>
                 <div className={styles.toDo}>{`No Messages Created `}</div>

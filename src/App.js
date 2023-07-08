@@ -5,11 +5,11 @@ import {
   useLocation,
 } from "react-router-dom";
 import CreateNewMessage from "./pages/CreateNewMessage";
-import Responses from "./pages/Responses";
-import Profile from "./pages/Profile";
-import DashboardFull from "./pages/DashboardFull";
 import DashboardEmpty from "./pages/DashboardEmpty";
+import DashboardFull from "./pages/DashboardFull";
+import Responses from "./pages/Responses";
 import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
 import { useEffect } from "react";
 
 function App() {
@@ -32,11 +32,7 @@ function App() {
         title = "";
         metaDescription = "";
         break;
-      case "/responses":
-        title = "";
-        metaDescription = "";
-        break;
-      case "/profile":
+      case "/dashboard-empty-main":
         title = "";
         metaDescription = "";
         break;
@@ -44,11 +40,15 @@ function App() {
         title = "";
         metaDescription = "";
         break;
-      case "/dashboard-empty-main":
+      case "/responses":
         title = "";
         metaDescription = "";
         break;
       case "/dashboard":
+        title = "";
+        metaDescription = "";
+        break;
+      case "/profile":
         title = "";
         metaDescription = "";
         break;
@@ -71,11 +71,11 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<CreateNewMessage />} />
-      <Route path="/responses" element={<Responses />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/dashboard-full" element={<DashboardFull />} />
       <Route path="/dashboard-empty-main" element={<DashboardEmpty />} />
+      <Route path="/dashboard-full" element={<DashboardFull />} />
+      <Route path="/responses" element={<Responses />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/profile" element={<Profile />} />
     </Routes>
   );
 }

@@ -1,33 +1,14 @@
 import { TextField, Button, Icon } from "@mui/material";
+import SideBarContainer from "../components/SideBarContainer";
 import styles from "./CreateNewMessage.module.css";
 const CreateNewMessage = () => {
   return (
     <div className={styles.createNewMessage}>
-      <div className={styles.fixedSideBar}>
-        <div className={styles.topMenuContainer}>
-          <img
-            className={styles.welcomeMessageIcon}
-            alt=""
-            src="/welcomemessage@2x.png"
-          />
-          <nav className={styles.menu}>
-            <div className={styles.menu1}>
-              <img className={styles.icon} alt="" src="/icon.svg" />
-              <div className={styles.addTask}>Dashboard</div>
-            </div>
-            <div className={styles.menuChild} />
-            <div className={styles.menu2}>
-              <img className={styles.icon1} alt="" src="/icon1.svg" />
-              <div className={styles.addTask1}>Profile</div>
-            </div>
-            <div className={styles.menu3}>
-              <img className={styles.icon} alt="" src="/icon2.svg" />
-              <div className={styles.addTask2}>Logout</div>
-            </div>
-          </nav>
-        </div>
-        <div className={styles.cta} />
-      </div>
+      <SideBarContainer
+        productIds="18x18x870246450"
+        productIdsArray="/icon1.svg"
+        productIdsString="18x18x3871275327"
+      />
       <div className={styles.desktop3}>
         <div className={styles.desktop3Inner}>
           <div className={styles.frameWrapper}>
@@ -89,18 +70,6 @@ const CreateNewMessage = () => {
               </Button>
             </div>
           </form>
-        </div>
-      </div>
-      <div className={styles.textArea}>
-        <div className={styles.div}>Label</div>
-        <div className={styles.textBlock}>
-          <div className={styles.hintText}>
-            <p className={styles.blankLine}>Hint text</p>
-            <p className={styles.blankLine}>&nbsp;</p>
-            <p className={styles.blankLine1}>&nbsp;</p>
-            <p className={styles.blankLine1}>&nbsp;</p>
-          </div>
-          <div className={styles.value}>0 / 225</div>
         </div>
       </div>
     </div>

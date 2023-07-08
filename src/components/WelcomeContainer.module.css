@@ -1,0 +1,44 @@
+.welcomeShashank,
+.whatWouldYou {
+  align-self: stretch;
+  position: relative;
+}
+.welcomeShashank {
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+.whatWouldYou {
+  font-size: var(--font-size-sm);
+  color: var(--color-darkslategray);
+}
+.welcomeShashankParent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.desktop3Inner,
+.frameParent {
+  align-self: stretch;
+  display: flex;
+}
+.frameParent {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-37xl);
+}
+.desktop3Inner {
+  background-color: var(--color-white);
+  box-shadow: 0 4px 148px rgba(0, 0, 0, 0.02);
+  flex-direction: column;
+  padding: var(--padding-21xl) var(--padding-45xl) var(--padding-5xl);
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+  font-size: var(--font-size-19xl);
+  color: var(--color-black);
+  font-family: var(--font-inter);
+}

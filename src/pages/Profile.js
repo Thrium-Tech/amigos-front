@@ -1,52 +1,21 @@
-import { Button, TextField } from "@mui/material";
+import { TextField, Button } from "@mui/material";
+import SideBarContainer from "../components/SideBarContainer";
+import WelcomeContainer from "../components/WelcomeContainer";
 import styles from "./Profile.module.css";
 const Profile = () => {
   return (
     <div className={styles.profile}>
-      <div className={styles.fixedSideBar}>
-        <div className={styles.topMenuContainer}>
-          <img
-            className={styles.welcomeMessageIcon}
-            alt=""
-            src="/welcomemessage@2x.png"
-          />
-          <nav className={styles.menu}>
-            <div className={styles.menu1}>
-              <img className={styles.icon} alt="" src="/icon3.svg" />
-              <div className={styles.addTask}>Dashboard</div>
-            </div>
-            <div className={styles.menuChild} />
-            <div className={styles.menu2}>
-              <img className={styles.icon1} alt="" src="/icon4.svg" />
-              <div className={styles.addTask1}>Profile</div>
-            </div>
-            <div className={styles.menu3}>
-              <img className={styles.icon} alt="" src="/icon2.svg" />
-              <div className={styles.addTask2}>Logout</div>
-            </div>
-          </nav>
-        </div>
-        <div className={styles.cta} />
-      </div>
+      <SideBarContainer
+        productIds="/icon3.svg"
+        productIdsArray="/icon4.svg"
+        productIdsString="/icon2.svg"
+      />
       <div className={styles.desktop3}>
-        <div className={styles.desktop3Inner}>
-          <div className={styles.frameParent}>
-            <div className={styles.welcomeShashankParent}>
-              <div className={styles.welcomeShashank}>Welcome, Shashank</div>
-              <div className={styles.manageYourProfile}>
-                Manage Your Profile and Settings
-              </div>
-            </div>
-            <Button
-              sx={{ width: 199 }}
-              variant="contained"
-              color="success"
-              href="/create-new-message"
-            >
-              + New Message
-            </Button>
-          </div>
-        </div>
+        <WelcomeContainer
+          whatWouldYouLikeToDoToday="Manage Your Profile and Settings"
+          frame12Href="/create-new-message"
+          propPadding="var(--padding-21xl) var(--padding-45xl) var(--padding-7xl)"
+        />
         <div className={styles.logInWrapper}>
           <div className={styles.logIn}>
             <div className={styles.fields}>
