@@ -1,0 +1,64 @@
+/* Style the content div */
+.content {
+  margin: 0 auto;
+  max-width: 960px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Style the container div */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Style the image */
+.img-fluid {
+  width: 100%;
+  height: auto;
+}
+
+/* Style the contents div */
+.contents {
+  padding: 20px;
+  margin: auto;
+  width: 400px;
+  height: 500px;
+}
+
+/* Style the logins h3 */
+.logins {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  color: #333;
+}
+
+/* Style the form */
+form {
+  margin-top: 20px;
+}
+
+/* Style the p tags */
+p {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  color: #333;
+}
+
+/* Style the input elements */
+input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Style the submit button */
+input[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+}

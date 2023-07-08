@@ -10,6 +10,7 @@ import DashboardFull from "./pages/DashboardFull";
 import Responses from "./pages/Responses";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
+import Login from "./pages/Login";
 import { useEffect } from "react";
 
 function App() {
@@ -29,6 +30,10 @@ function App() {
 
     switch (pathname) {
       case "/":
+        title = "";
+        metaDescription = "";
+        break;
+      case "/create-new-message":
         title = "";
         metaDescription = "";
         break;
@@ -70,7 +75,8 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<CreateNewMessage />} />
+      <Route path="/" element={<Login />} />
+      <Route path="/create-new-message" element={<CreateNewMessage />} />
       <Route path="/dashboard-empty-main" element={<DashboardEmpty />} />
       <Route path="/dashboard-full" element={<DashboardFull />} />
       <Route path="/responses" element={<Responses />} />
