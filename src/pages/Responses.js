@@ -1,6 +1,7 @@
 import NavigationContainer from "../components/NavigationContainer";
 import WelcomeContainer from "../components/WelcomeContainer";
 import styles from "./Responses.module.css";
+
 const Responses = () => {
   return (
     <div className={styles.responses}>
