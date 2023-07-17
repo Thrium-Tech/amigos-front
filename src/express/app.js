@@ -185,11 +185,42 @@ app.post('/sendtextmessage', (req, res) => {
   .then((response) => {
     console.log(JSON.stringify(response.data));
     res.status(200).send('Message sent successfully');
-    saveMessage(body.phone_number, 'sent', 'template', body.template_name);
+    saveMessage(body.phone_number, 'sent', 'text', body.message);
 
   })
   .catch((error) => {
     console.log(error);
     res.status(500).send('Message failed to send');
   });
+});
+
+
+app.get("/phonenumbers", async (req, res) => {
+  try {
+    // Query the database for all unique phone numbers
+    const phoneNumbers = await Message.distinct("phoneNumber");
+    console.log(phoneNumbers);
+    res.status(200).json(phoneNumbers);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'An error occurred while fetching phone numbers' });
+  }
+});
+
+app.get("/messages", async (req, res) => {
+  try {
+    const phoneNumber = req.query.phoneNumber;
+    
+    // Create a query object
+    const query = phoneNumber ? { phoneNumber } : {};
+
+    // Query the database for messages based on the provided criteria
+    const messages = await Message.find(query);
+
+    console.log(messages);
+    res.status(200).json(messages);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'An error occurred while fetching messages' });
+  }
 });
