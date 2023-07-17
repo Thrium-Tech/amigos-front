@@ -41,14 +41,14 @@ const NavigationContainer = ({
             <div className={styles.addTask}>Dashboard</div>
           </Link>
           <div className={styles.menuChild} />
-          <Link className={styles.menu2} to="/profile">
+          <Link className={styles.menu2} to="/livechat">
             <img className={styles.icon} alt="" src={icon1} />
-            <div className={styles.addTask}>Profile</div>
+            <div className={styles.addTask}>LiveChat</div>
           </Link>
-          <div className={styles.menu3}>
+          <Link className={styles.menu2} to="/">
             <img className={styles.icon} alt="" src="/icon2.svg" />
             <div className={styles.addTask}>Logout</div>
-          </div>
+          </Link>
         </nav>
       </div>
       <div className={styles.cta} />

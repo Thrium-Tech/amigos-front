@@ -16,7 +16,7 @@ const WelcomeContainer = ({
     <div className={styles.desktop3Inner} style={frameDivStyle}>
       <div className={styles.frameParent}>
         <div className={styles.welcomeShashankParent}>
-          <div className={styles.welcomeShashank}>Welcome, Shashank</div>
+          <div className={styles.welcomeShashank}>Welcome, {JSON.parse(localStorage.getItem('name'))}</div>
           <div className={styles.whatWouldYou}>{whatWouldYouLikeToDoToday}</div>
         </div>
         <Button

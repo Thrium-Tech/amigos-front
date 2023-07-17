@@ -12,11 +12,11 @@ const DashboardEmpty = () => {
               <div className={styles.addTask}>Dashboard</div> 
             </a>
             <div className={styles.menuChild} />
-            <a className={styles.menu2} href="/Profile">
+            <a className={styles.menu2} href="/livechat">
               <img className={styles.icon} alt="" src="/icon1.svg" />
-              <div className={styles.addTask}>Profile</div>
+              <div className={styles.addTask}>LiveChat</div>
             </a>
-            <a className={styles.menu2}>
+            <a className={styles.menu2} href="/">
               <img className={styles.icon} alt="" src="/icon2.svg" />
               <div className={styles.addTask}>Logout</div>
             </a>

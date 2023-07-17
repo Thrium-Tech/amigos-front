@@ -20,7 +20,7 @@ const SideBarContainer = ({
           <div className={styles.menuChild} />
           <div className={styles.menu2}>
             <img className={styles.icon1} alt="" src={productIdsArray} />
-            <div className={styles.addTask1}>Profile</div>
+            <div className={styles.addTask1}>LiveChat</div>
           </div>
           <div className={styles.menu3}>
             <img className={styles.icon} alt="" src={productIdsString} />

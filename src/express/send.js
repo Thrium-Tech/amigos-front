@@ -1,10 +1,12 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
+const cors = require('cors');
 const bodyParser = require('body-parser');
 
 
 app.use(express.json());
+app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/sendmessage', (req, res) => {
@@ -57,6 +59,6 @@ app.post('/sendmessage', (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log('Server running on port 3000');
+app.listen(3001, () => {
+  console.log('Server running on port 3001');
 });

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './css/style.css';
+import styles from './style.css';
 
 function Login() {
   // state variables for user input
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [password, setPassword] = useState('');
+  const [verifyToken, setVerifyToken] = useState('');
+  const [callbackUrl, setCallbackUrl] = useState('');
 
   // history object for navigation
   const navigate = useNavigate();
@@ -26,6 +28,16 @@ function Login() {
     setPassword(event.target.value);
   }
 
+  // handle change of verify token input
+  function handleVerifyTokenChange(event) {
+    setVerifyToken(event.target.value);
+  }
+
+  // handle change of callback URL input
+  function handleCallbackUrlChange(event) {
+    setCallbackUrl(event.target.value);
+  }
+
   // handle form submission
   function handleSubmit(event) {
     event.preventDefault();
@@ -33,10 +45,14 @@ function Login() {
     console.log('Name:', name);
     console.log('Phone Number Id:', number);
     console.log('Access Token:', password);
+    console.log('Verify Token:', verifyToken);
+    console.log('Callback URL:', callbackUrl);
     // store the values in localStorage using JSON.stringify
     localStorage.setItem('name', JSON.stringify(name));
     localStorage.setItem('number', JSON.stringify(number));
     localStorage.setItem('password', JSON.stringify(password));
+    localStorage.setItem('verifyToken', JSON.stringify(verifyToken));
+    localStorage.setItem('callbackUrl', JSON.stringify(callbackUrl));
     // redirect to /dashboard-empty-main
     navigate('/dashboard-empty-main');
   }
@@ -46,6 +62,8 @@ function Login() {
     setName(JSON.parse(localStorage.getItem('name')) || '');
     setNumber(JSON.parse(localStorage.getItem('number')) || '');
     setPassword(JSON.parse(localStorage.getItem('password')) || '');
+    setVerifyToken(JSON.parse(localStorage.getItem('verifyToken')) || '');
+    setCallbackUrl(JSON.parse(localStorage.getItem('callbackUrl')) || '');
   }, []); // run only once
 
   // sync the local state variables with the localStorage variables whenever they change
@@ -53,15 +71,14 @@ function Login() {
     localStorage.setItem('name', JSON.stringify(name));
     localStorage.setItem('number', JSON.stringify(number));
     localStorage.setItem('password', JSON.stringify(password));
-  }, [name, number, password]); // run whenever name, number or password changes
+    localStorage.setItem('verifyToken', JSON.stringify(verifyToken));
+    localStorage.setItem('callbackUrl', JSON.stringify(callbackUrl));
+  }, [name, number, password, verifyToken, callbackUrl]); // run whenever any of these state variables change
 
   return (
     <div className="content">
       <div className="container">
         <div className="row">
-          {/* <div className="col-md-6">
-            <img src="images/Tourist Welcome.svg" alt="Image" className="img-fluid" />
-          </div> */}
           <div className="col-md-6 contents">
             <div className="row justify-content-center">
               <div className="col-md-8">
@@ -84,7 +101,7 @@ function Login() {
                   <div className="form-group last mb-4">
                     <label htmlFor="number"></label>
                     <input
-                      type="ussername"
+                      type="username"
                       className="form-control"
                       id="number"
                       value={number}
@@ -100,6 +117,28 @@ function Login() {
                       id="password"
                       value={password}
                       onChange={handlePasswordChange}
+                    />
+                  </div>
+                  <p>Verify Token</p>
+                  <div className="form-group last mb-4">
+                    <label htmlFor="verifyToken"></label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="verifyToken"
+                      value={verifyToken}
+                      onChange={handleVerifyTokenChange}
+                    />
+                  </div>
+                  <p>Callback URL</p>
+                  <div className="form-group last mb-4">
+                    <label htmlFor="callbackUrl"></label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="callbackUrl"
+                      value={callbackUrl}
+                      onChange={handleCallbackUrlChange}
                     />
                   </div>
                   <input type="submit" value="Log In" className="btn btn-block btn-primary" />
