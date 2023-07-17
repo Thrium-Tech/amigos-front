@@ -136,7 +136,7 @@ app.post('/sendmessage', (req, res) => {
   .then((response) => {
     console.log(JSON.stringify(response.data));
     res.status(200).send('Message sent successfully');
-    saveMessage(body.phone_number, 'sent', 'template', body.template_name);
+    saveMessage(body.phone_number, 'sent', 'text', body.template_name);
 
   })
   .catch((error) => {

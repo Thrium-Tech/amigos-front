@@ -24,7 +24,9 @@ const WhatsAppChatBox = () => {
       const fetchMessages = async () => {
         try {
           const response = await axios.get(`http://localhost:3001/messages?phoneNumber=${selectedNumber}`);
-          setChats(response.data);
+          const allChats = response.data;
+          const last9Chats = allChats.slice(-9);
+          setChats(last9Chats);
         } catch (error) {
           console.error(error);
           // Handle error

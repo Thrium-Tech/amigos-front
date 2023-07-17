@@ -1,28 +1,67 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import WelcomeContainer from "../components/WelcomeContainer";
 import styles from "./WhatsAppChatBox.module.css";
 
 const WhatsAppChatBox = () => {
-  const [numbers, setNumbers] = useState(["1234567890", "0987654321"]);
+  const [numbers, setNumbers] = useState([]);
   const [selectedNumber, setSelectedNumber] = useState(null);
   const [chats, setChats] = useState([]);
   const [message, setMessage] = useState("");
 
   useEffect(() => {
+    // Fetch numbers
+    const fetchNumbers = async () => {
+      const response = await axios.get('http://localhost:3001/phonenumbers');
+      setNumbers(response.data);
+    }
+    fetchNumbers();
+  }, []);
+
+  useEffect(() => {
+    // Fetch all messages for the selected number
     if (selectedNumber) {
-      setChats([
-        { direction: "sent", content: "Hello" },
-        { direction: "received", content: "Hi there!" },
-        { direction: "sent", content: "How are you?" },
-        { direction: "received", content: "I'm good. Thanks for asking!" }
-      ]);
+      const fetchMessages = async () => {
+        try {
+          const response = await axios.get(`http://localhost:3001/messages?phoneNumber=${selectedNumber}`);
+          setChats(response.data);
+        } catch (error) {
+          console.error(error);
+          // Handle error
+        }
+      };
+      fetchMessages();
     }
   }, [selectedNumber]);
 
   const handleSendMessage = () => {
     if (message.trim() !== "") {
-      setChats([...chats, { direction: "sent", content: message.trim() }]);
-      setMessage("");
+      let data = JSON.stringify({
+        "access_token": JSON.parse(localStorage.getItem('password')),
+        "whatsapp_number_id": JSON.parse(localStorage.getItem('number')),
+        "version_number": "v17.0",
+        "phone_number": selectedNumber,
+        "message": message
+      });
+
+      let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        // url: 'https://whatcrm.org/sendmessage',
+        url: 'http://localhost:3001/sendtextmessage',
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        data: data
+      };
+
+      axios.request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
 
