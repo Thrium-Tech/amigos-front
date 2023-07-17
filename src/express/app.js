@@ -39,6 +39,7 @@ app.post("/webhook", (req, res) => {
       const msg_body = message.text.body;
 
       console.log("Received message: " + msg_body);
+      saveMessage(body.phone_number, 'recieved', 'text', body.template_name);
     }
   }
 
@@ -52,7 +53,7 @@ app.get("/webhook", (req, res) => {
    * UPDATE YOUR VERIFY TOKEN
    *This will be the Verify Token value when you set up webhook
   **/
-  const verify_token = process.env.VERIFY_TOKEN;
+  const verify_token = 'TOKEN1234';
 
   // Parse params from the webhook verification request
   let mode = req.query["hub.mode"];
