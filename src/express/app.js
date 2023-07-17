@@ -1,28 +1,19 @@
-/*
- * Starter Project for WhatsApp Echo Bot Tutorial
- *
- * Remix this as the starting point for following the WhatsApp Echo Bot tutorial
- *
- */
-
-"use strict";
-
-// Access token for your app
-// (copy token from DevX getting started page
-// and save it as environment variable into the .env file)
-const token = process.env.WHATSAPP_TOKEN;
-
-// Imports dependencies and set up http server
 const request = require("request"),
   express = require("express"),
   body_parser = require("body-parser"),
   axios = require("axios").default,
+  cors= require("cors"),
   app = express().use(body_parser.json()); // creates express http server
+  app.use(cors());
+  Message = require('../db/db.js');
 
-// Sets server port and logs message on success
-app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
+//mongo 
 
-// Accepts POST requests at /webhook endpoint
+
+// // Sets server port and logs message on success
+app.listen(process.env.PORT || 3001, () => console.log("webhook is listening"));
+
+//Accepts POST requests at /webhook endpoint
 app.post("/webhook", (req, res) => {
   // Parse the request body from the POST
   let body = req.body;
@@ -30,39 +21,28 @@ app.post("/webhook", (req, res) => {
   // Check the Incoming webhook message
   console.log(JSON.stringify(req.body, null, 2));
 
-  // info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
-  if (req.body.object) {
+  // Verify the event is a WhatsApp message
+  if (req.body.object === "page" && req.body.entry) {
+    const entry = req.body.entry[0];
+
+    // Check if the entry has any message events
     if (
-      req.body.entry &&
-      req.body.entry[0].changes &&
-      req.body.entry[0].changes[0] &&
-      req.body.entry[0].changes[0].value.messages &&
-      req.body.entry[0].changes[0].value.messages[0]
+      entry.changes &&
+      entry.changes[0] &&
+      entry.changes[0].value &&
+      entry.changes[0].value.messages &&
+      entry.changes[0].value.messages[0]
     ) {
-      let phone_number_id =
-        req.body.entry[0].changes[0].value.metadata.phone_number_id;
-      let from = req.body.entry[0].changes[0].value.messages[0].from; // extract the phone number from the webhook payload
-      let msg_body = req.body.entry[0].changes[0].value.messages[0].text.body; // extract the message text from the webhook payload
-      axios({
-        method: "POST", // Required, HTTP method, a string, e.g. POST, GET
-        url:
-          "https://graph.facebook.com/v12.0/" +
-          phone_number_id +
-          "/messages?access_token=" +
-          token,
-        data: {
-          messaging_product: "whatsapp",
-          to: from,
-          text: { body: "Ack: " + msg_body },
-        },
-        headers: { "Content-Type": "application/json" },
-      });
+      const message = entry.changes[0].value.messages[0];
+      const phone_number_id = entry.changes[0].value.metadata.phone_number_id;
+      const from = message.from;
+      const msg_body = message.text.body;
+
+      console.log("Received message: " + msg_body);
     }
-    res.sendStatus(200);
-  } else {
-    // Return a '404 Not Found' if event is not from a WhatsApp API
-    res.sendStatus(404);
   }
+
+  res.sendStatus(200);
 });
 
 // Accepts GET requests at the /webhook endpoint. You need this URL to setup webhook initially.
@@ -91,4 +71,125 @@ app.get("/webhook", (req, res) => {
       res.sendStatus(403);
     }
   }
+});
+
+function saveMessage(phoneNumber, direction, type, content) {
+  const message = new Message({
+    phoneNumber,
+    direction,
+    type,
+    content
+  });
+
+  message.save()
+    .then((savedMessage) => {
+      console.log('Message saved successfully:', savedMessage);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+}
+
+
+
+
+app.post('/sendmessage', (req, res) => {
+  // get the request body as a JSON object
+  let body = req.body;
+
+  console.log(body);
+  // validate the required fields
+  if (!body.access_token || !body.whatsapp_number_id || !body.version_number || !body.phone_number || !body.template_name) {
+    return res.status(400).send('Missing required fields');
+  }
+
+  // construct the data object for the axios request
+  let data = JSON.stringify({
+    "messaging_product": "whatsapp",
+    "to": body.phone_number,
+    "type": "template",
+    "template": {
+      "name": body.template_name,
+      "language": {
+        "code": "en_US"
+      }
+    }
+  });
+
+  // construct the url for the axios request
+  let url = `https://graph.facebook.com/${body.version_number}/${body.whatsapp_number_id}/messages`;
+
+  // construct the config object for the axios request
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: url,
+    headers: { 
+      'Content-Type': 'application/json', 
+      'Authorization': `Bearer ${body.access_token}`
+    },
+    data : data
+  };
+
+  // make the axios request and handle the response
+  axios.request(config)
+  .then((response) => {
+    console.log(JSON.stringify(response.data));
+    res.status(200).send('Message sent successfully');
+    saveMessage(body.phone_number, 'sent', 'template', body.template_name);
+
+  })
+  .catch((error) => {
+    console.log(error);
+    res.status(500).send('Message failed to send');
+  });
+});
+
+app.post('/sendtextmessage', (req, res) => {
+  // get the request body as a JSON object
+  let body = req.body;
+
+  console.log(body);
+  // validate the required fields
+  if (!body.access_token || !body.whatsapp_number_id || !body.version_number || !body.phone_number || !body.message) {
+    return res.status(400).send('Missing required fields');
+  }
+
+  // construct the data object for the axios request
+  let data = JSON.stringify({
+    "messaging_product": "whatsapp",
+    "to": body.phone_number,
+    "type": "text",
+    "text": {
+      "body":body.message
+    }
+  });
+
+  // construct the url for the axios request
+  let url = `https://graph.facebook.com/${body.version_number}/${body.whatsapp_number_id}/messages`;
+
+  // construct the config object for the axios request
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: url,
+    headers: { 
+      'Content-Type': 'application/json', 
+      'Authorization': `Bearer ${body.access_token}`
+    },
+    data : data
+  };
+
+  // make the axios request and handle the response
+  axios.request(config)
+  .then((response) => {
+    console.log(JSON.stringify(response.data));
+    res.status(200).send('Message sent successfully');
+    saveMessage(body.phone_number, 'sent', 'template', body.template_name);
+
+  })
+  .catch((error) => {
+    console.log(error);
+    res.status(500).send('Message failed to send');
+  });
 });
