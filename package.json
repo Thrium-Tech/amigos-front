@@ -27,6 +27,8 @@
         "react-router-dom": "^6.2.1",
         "react-scripts": "5.0.1",
         "request": "^2.88.2",
+        "socket.io": "^4.7.1",
+        "socket.io-client": "^4.7.1",
         "util": "^0.12.5",
         "web-vitals": "^2.1.4",
         "whatsapp": "^0.0.5-Alpha"

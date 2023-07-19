@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import io from 'socket.io-client';
 import WelcomeContainer from "../components/WelcomeContainer";
 import styles from "./WhatsAppChatBox.module.css";
 
@@ -8,22 +9,33 @@ const WhatsAppChatBox = () => {
   const [selectedNumber, setSelectedNumber] = useState(null);
   const [chats, setChats] = useState([]);
   const [message, setMessage] = useState("");
+  const [socket, setSocket] = useState(null); // Store socket in state
+
+  // Create socket connection
+  useEffect(() => {
+    const newSocket = io('http://localhost:3002'); 
+    setSocket(newSocket);
+
+    return () => newSocket.close(); // Clean up socket connection
+  }, []);
+
+  const userNumber = JSON.parse(localStorage.getItem('number'));
 
   useEffect(() => {
     // Fetch numbers
     const fetchNumbers = async () => {
-      const response = await axios.get('http://localhost:3001/phonenumbers');
+      const response = await axios.get(`http://localhost:3001/phonenumbers?user=${userNumber}`);
       setNumbers(response.data);
     }
     fetchNumbers();
   }, []);
-
+  
   useEffect(() => {
     // Fetch all messages for the selected number
     if (selectedNumber) {
       const fetchMessages = async () => {
         try {
-          const response = await axios.get(`http://localhost:3001/messages?phoneNumber=${selectedNumber}`);
+          const response = await axios.get(`http://localhost:3001/messages?user=${userNumber}&phoneNumber=${selectedNumber}`);
           const allChats = response.data;
           const last9Chats = allChats.slice(-9);
           setChats(last9Chats);
@@ -36,6 +48,24 @@ const WhatsAppChatBox = () => {
     }
   }, [selectedNumber]);
 
+  useEffect(() => {
+    if (!socket) return; // If the socket is not connected, do nothing
+
+    // Handle newMessage event
+    socket.on('newMessage', (newMessage) => {
+      setChats((chats) => {
+        let newChats = [...chats, newMessage];
+        if(newChats.length > 9) {
+          newChats.shift(); // Remove the oldest message if the total number of messages exceeds 9
+        }
+        return newChats;
+      });
+      console.log(newMessage)
+    });
+  }, [socket]); // Only re-run the effect if the socket changes
+
+
+  
   const handleSendMessage = () => {
     if (message.trim() !== "") {
       let data = JSON.stringify({

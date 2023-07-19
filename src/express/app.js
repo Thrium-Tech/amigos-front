@@ -1,3 +1,6 @@
+const http = require('http');
+const io = require('socket.io');
+
 const request = require("request"),
   express = require("express"),
   body_parser = require("body-parser"),
@@ -8,7 +11,22 @@ const request = require("request"),
   Message = require('../db/db.js');
 
 //mongo 
+const server = http.createServer(app);
 
+const socketio = io(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"]
+  }
+});
+
+socketio.on("connection", socket => {
+  console.log("New client connected");
+});
+
+socketio.on("connect_error", err => {
+  console.log(`Connect error due to ${err.message}`);
+});
 
 // // Sets server port and logs message on success
 app.listen(process.env.PORT || 3001, () => console.log("webhook is listening"));
@@ -74,8 +92,9 @@ app.get("/webhook", (req, res) => {
   }
 });
 
-function saveMessage(phoneNumber, direction, type, content) {
+function saveMessage(user,phoneNumber, direction, type, content) {
   const message = new Message({
+    user,
     phoneNumber,
     direction,
     type,
@@ -85,6 +104,7 @@ function saveMessage(phoneNumber, direction, type, content) {
   message.save()
     .then((savedMessage) => {
       console.log('Message saved successfully:', savedMessage);
+      socketio.emit('newMessage', savedMessage);
     })
     .catch(err => {
       console.error(err);
@@ -137,7 +157,7 @@ app.post('/sendmessage', (req, res) => {
   .then((response) => {
     console.log(JSON.stringify(response.data));
     res.status(200).send('Message sent successfully');
-    saveMessage(body.phone_number, 'sent', 'text', body.template_name);
+    saveMessage(body.whatsapp_number_id,body.phone_number, 'sent', 'text', body.template_name);
 
   })
   .catch((error) => {
@@ -186,7 +206,7 @@ app.post('/sendtextmessage', (req, res) => {
   .then((response) => {
     console.log(JSON.stringify(response.data));
     res.status(200).send('Message sent successfully');
-    saveMessage(body.phone_number, 'sent', 'text', body.message);
+    saveMessage(body.whatsapp_number_id,body.phone_number, 'sent', 'text', body.message);
 
   })
   .catch((error) => {
@@ -197,10 +217,26 @@ app.post('/sendtextmessage', (req, res) => {
 
 
 app.get("/phonenumbers", async (req, res) => {
+  const user = req.query.user; // Get the user from the request query parameters
+  
+  console.log(`Fetching phone numbers for user: ${user}`); // Log the user to the console
+
+  if (!user) {
+    res.status(400).json({ error: 'No user provided' });
+    return;
+  }
+
   try {
-    // Query the database for all unique phone numbers
-    const phoneNumbers = await Message.distinct("phoneNumber");
-    console.log(phoneNumbers);
+    // Query the database for all unique phone numbers associated with the user
+    const phoneNumbers = await Message.distinct("phoneNumber", { user: user });
+    
+    if (!phoneNumbers || phoneNumbers.length === 0) {
+      console.log(`No phone numbers found for user: ${user}`);
+      res.status(404).json({ error: 'No phone numbers found for provided user' });
+      return;
+    }
+
+    console.log(`Phone numbers for user ${user}:`, phoneNumbers);
     res.status(200).json(phoneNumbers);
   } catch (err) {
     console.error(err);
@@ -208,14 +244,21 @@ app.get("/phonenumbers", async (req, res) => {
   }
 });
 
+
+
 app.get("/messages", async (req, res) => {
   try {
     const phoneNumber = req.query.phoneNumber;
-    
-    // Create a query object
-    const query = phoneNumber ? { phoneNumber } : {};
+    const user = req.query.user; // Get the user from the request query parameters
 
-    // Query the database for messages based on the provided criteria
+    // Create a query object
+    const query = {};
+
+    // Update the query object based on the provided phoneNumber and user
+    if (phoneNumber) query.phoneNumber = phoneNumber;
+    if (user) query.user = user;
+
+    // Query the database for messages based on the updated criteria
     const messages = await Message.find(query);
 
     console.log(messages);
@@ -224,4 +267,10 @@ app.get("/messages", async (req, res) => {
     console.error(err);
     res.status(500).json({ error: 'An error occurred while fetching messages' });
   }
+});
+
+
+
+server.listen(3002, () => {
+  console.log('Server is running...');
 });

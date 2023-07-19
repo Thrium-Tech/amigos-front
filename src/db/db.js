@@ -7,6 +7,7 @@ mongoose.connect('mongodb://0.0.0.0:27017/Whatsapp', { useNewUrlParser: true, us
   .catch(err => console.log(err));
 
 const messageSchema = new mongoose.Schema({
+  user:String,
   phoneNumber: String,
   direction: String, // 'sent' or 'received'
   type: String, // 'text' or 'template'
